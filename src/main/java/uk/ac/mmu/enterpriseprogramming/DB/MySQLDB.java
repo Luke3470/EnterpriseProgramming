@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySQLDB implements DB{
-    private final String user = "****";
-    private final String password = "****";
+    private final String user = "cadmancl";
+    private final String password = "WeakUspEw7";
     private final String conn_string = "jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:6306/"+ user;
     private final int retries = 3;
 

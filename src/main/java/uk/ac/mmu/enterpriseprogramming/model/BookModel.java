@@ -2,7 +2,7 @@ package uk.ac.mmu.enterpriseprogramming.model;
 
 import uk.ac.mmu.enterpriseprogramming.DB.DB;
 import uk.ac.mmu.enterpriseprogramming.DB.MySQLDB;
-import uk.ac.mmu.enterpriseprogramming.model.data.User;
+import uk.ac.mmu.enterpriseprogramming.model.data.Book;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,21 +12,25 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class UserModel {
+public class BookModel {
 
-    public static List<User> getUsers(){
-        List<User> userList = new ArrayList<User>();
+    public static List<Book> getBook(){
+        List<Book> userList = new ArrayList<Book>();
 
-        String query = "SELECT * FROM contacts";
+        String query = "SELECT * FROM books";
         DB db = new MySQLDB();
         try(Connection conn = db.createCon()){
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while (rs.next()){
-                User user = new User(
-                        rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getInt("id")
+                Book user = new Book(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("date"),
+                        rs.getString("genres"),
+                        rs.getString("characters"),
+                        rs.getString("synopsis")
                 );
                 userList.add(user);
             }
