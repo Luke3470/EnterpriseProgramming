@@ -95,7 +95,6 @@ public class cleanDb {
 
         int status = con.getResponseCode();
 
-        System.out.println(status);
         if (status == 429) {
           System.out.println("Rate limited. Waiting 30 seconds before retry...");
           Thread.sleep(30000);
