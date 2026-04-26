@@ -34,7 +34,8 @@
           </div>
           <div class="mt-auto d-flex gap-2 justify-content-center pb-4">
 
-            <a href="view?id=${b.id()}" class="btn btn-primary btn-sm">
+            <a href="${pageContext.request.contextPath}/book/${b.id()}"
+               class="btn btn-primary btn-sm">
               <i class="fa-solid fa-book-open"></i>
             </a>
 
