@@ -106,6 +106,9 @@ public class cleanDb {
           attempt = maxRetries;
           continue;
         }
+        if (status == 200) {
+          System.out.println("Cover found for "+b.title());
+        }
 
         BufferedReader reader = new BufferedReader(
             new InputStreamReader(con.getInputStream())
