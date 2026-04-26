@@ -16,7 +16,7 @@
 
             <div class="card shadow">
                 <div class="card-header bg-primary text-white text-center">
-                    <h3 class="mb-0">Add New Book</h3>
+                    <h3 class="mb-0">Edit Book</h3>
                 </div>
 
                 <div class="card-body">
