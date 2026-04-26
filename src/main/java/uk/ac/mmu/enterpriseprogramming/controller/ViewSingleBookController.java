@@ -10,7 +10,7 @@ import uk.ac.mmu.enterpriseprogramming.helper.Validator;
 import uk.ac.mmu.enterpriseprogramming.model.BookDAO;
 import uk.ac.mmu.enterpriseprogramming.model.data.BookVO;
 
-@WebServlet("/book/*")
+@WebServlet("/books/*")
 public class ViewSingleBookController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
