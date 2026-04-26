@@ -31,18 +31,12 @@ public class SearchController extends HttpServlet {
         req.setAttribute("Books", books);
         HttpSession session = req.getSession(false);
 
-        System.out.println("BOOKS SESSION ID: " + (session != null ? session.getId() : "NO SESSION"));
-
         if (session != null) {
             String msg = (String) session.getAttribute("successMessage");
-
-            System.out.println("READ MSG: " + msg);
-
             req.setAttribute("successMessage", msg);
-
             session.removeAttribute("successMessage");
         }
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, resp);
     }
 
 

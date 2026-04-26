@@ -21,8 +21,6 @@ public class DeleteController extends HttpServlet {
       BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
       bookDAO.deleteBook(id);
       req.getSession().setAttribute("successMessage", "Book deleted successfully");
-      System.out.println("DELETE SESSION ID: " + req.getSession().getId());
-      System.out.println("SETTING MSG: " + req.getSession().getAttribute("successMessage"));
 
       resp.sendRedirect(req.getContextPath() + "/books");
 

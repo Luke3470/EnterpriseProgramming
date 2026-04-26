@@ -18,19 +18,7 @@
 <body class="bg-light" data-context-path="${pageContext.request.contextPath}">
 
 <div class="container py-4">
-  <h1 class="mb-4 text-center">Books</h1>
-
-  <form class="mb-4" action="/" method="get">
-    <div class="input-group">
-      <input type="text"
-             class="form-control"
-             name="q"
-             placeholder="Search by title"
-             value="${param.q}">
-      <button class="btn btn-primary" type="submit">Search</button>
-    </div>
-  </form>
-
+  <%@ include file="/WEB-INF/jsp/header.jsp" %>
   <div class="row g-4">
     <c:forEach var="b" items="${Books}">
       <div class="col-md-4 col-lg-3">
