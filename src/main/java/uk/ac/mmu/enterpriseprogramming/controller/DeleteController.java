@@ -1,0 +1,11 @@
+package uk.ac.mmu.enterpriseprogramming.controller;
+
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+@WebServlet("/delete")
+public class DeleteController extends HttpServlet {
+
+
+}

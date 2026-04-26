@@ -15,15 +15,14 @@ import java.io.IOException;
 
 
 @WebServlet("")
-public class BookController extends HttpServlet {
+public class SearchController extends HttpServlet {
 
-
-    private final DB db = new MySQLDB();
-    private final BookDAO bookDAO = new BookDAOImpl(db);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
+
+        BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
 
         int limit = 12;
         int offset = 0;

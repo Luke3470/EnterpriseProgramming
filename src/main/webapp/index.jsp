@@ -12,6 +12,8 @@
   >
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/index.js"></script>
 </head>
 <body class="bg-light">
 
@@ -52,8 +54,14 @@
               <i class="fa-solid fa-pen-to-square"></i>
             </a>
 
-            <a href="delete?id=${b.id()}" class="btn btn-danger btn-sm"
-               onclick="return confirm('Delete this book?');">
+            <a href="#"
+               class="btn btn-danger btn-sm"
+               data-bs-toggle="modal"
+               data-bs-target="#deleteModal"
+               data-id="${b.id()}"
+               data-title="${b.title()}"
+               data-author="${b.author()}"
+               data-date="${b.date()}">
               <i class="fa-solid fa-trash"></i>
             </a>
 
@@ -68,6 +76,36 @@
 
   </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>Are you sure you want to delete this book?</p>
+
+        <p><strong>Title:</strong> <span id="modalTitle"></span></p>
+        <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+        <p><strong>Date:</strong> <span id="modalDate"></span></p>
+      </div>
+
+      <div class="modal-footer">
+        <form id="deleteForm" method="get">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-danger">
+            Delete
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 </body>
 </html>

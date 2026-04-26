@@ -153,6 +153,25 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
+    @Override
+    public int countBooks() {
+        int total = 0;
+        String sql = "SELECT COUNT(*) FROM books";
+
+        try (Connection conn = db.createCon();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
     // -------------------------
     // DELETE
     // -------------------------
