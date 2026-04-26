@@ -10,12 +10,12 @@
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
   >
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/index.js"></script>
+  <script src="${pageContext.request.contextPath}/js/index.js"></script>
 </head>
-<body class="bg-light">
+<body class="bg-light" data-context-path="${pageContext.request.contextPath}">
 
 <div class="container py-4">
   <h1 class="mb-4 text-center">Books</h1>
@@ -75,6 +75,14 @@
     </c:if>
 
   </div>
+  <! -- Requires Inline Styles to load properly -->
+<div style="position:fixed; top: 20px; right: 20px; width: 300px; z-index: 1055;">
+  <c:if test="${not empty successMessage}">
+    <div class="alert alert-success alert-dismissible fade show mb-0 text-center" role="alert">
+        ${successMessage}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </c:if>
 </div>
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
@@ -94,10 +102,13 @@
       </div>
 
       <div class="modal-footer">
-        <form id="deleteForm" method="get">
+        <form id="deleteForm" method="post">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Cancel
           </button>
+
+          <input type="hidden" name="id" id="deleteId">
+
           <button type="submit" class="btn btn-danger">
             Delete
           </button>
