@@ -1,26 +1,42 @@
 package uk.ac.mmu.enterpriseprogramming.controller;
 
-import uk.ac.mmu.enterpriseprogramming.model.BookModel;
-import uk.ac.mmu.enterpriseprogramming.model.data.Book;
+
+import java.util.List;
+import uk.ac.mmu.enterpriseprogramming.DB.DB;
+import uk.ac.mmu.enterpriseprogramming.DB.MySQLDB;
+import uk.ac.mmu.enterpriseprogramming.model.BookDAO;
+import uk.ac.mmu.enterpriseprogramming.model.BookDAOImpl;
+import uk.ac.mmu.enterpriseprogramming.model.data.BookVO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.List;
+
 
 @WebServlet("")
 public class BookController extends HttpServlet {
 
+
+    private final DB db = new MySQLDB();
+    private final BookDAO bookDAO = new BookDAOImpl(db);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
 
-        List<Book> books = BookModel.getBook();
+        int limit = 12;
+        int offset = 0;
+
+        String q = req.getParameter("q");
+
+        List<BookVO> books = bookDAO.getBooks(limit, offset);
+
         req.setAttribute("Books", books);
-
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
-}
 
+
+
+}
 

@@ -7,6 +7,7 @@ create table books (
                        genres varchar(255),
                        characters text,
                        synopsis text,
+                       coverUrl text,
                        PRIMARY KEY (id)
 );
 

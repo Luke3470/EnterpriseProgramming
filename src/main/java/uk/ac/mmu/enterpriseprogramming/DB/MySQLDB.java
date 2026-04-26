@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySQLDB implements DB{
-    private final String user = "cadmancl";
-    private final String password = "WeakUspEw7";
-    private final String conn_string = "jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:6306/"+ user;
+    private final String user = "";
+    private final String password = "";
+    private final String conn_string = ""+ user;
     private final int retries = 3;
 
     @Override
@@ -21,17 +21,16 @@ public class MySQLDB implements DB{
         while (attempts < retries) {
             try {
                 attempts++;
-                System.out.println("Attempt " + attempts + " to connect...");
+                //System.out.println("Attempt " + attempts + " to connect...");
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn = DriverManager.getConnection(conn_string, user, password);
-                System.out.println("Connected successfully!");
+               // System.out.println("Connected successfully!");
                 return conn;
 
             } catch (SQLException | ClassNotFoundException e) {
                 System.err.println("Connection failed: " + e.getMessage());
 
-                // small delay between retries (optional)
                 try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
             }
         }
