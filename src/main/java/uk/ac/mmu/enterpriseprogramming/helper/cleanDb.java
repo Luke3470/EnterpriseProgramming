@@ -129,7 +129,7 @@ public class cleanDb {
           return json.get("url").getAsString();
         }
 
-        return placeholder();
+        return ImageUtils.PLACEHOLDER_URL;
 
       } catch (Exception e) {
         attempt++;
@@ -139,10 +139,7 @@ public class cleanDb {
       }
     }
 
-    return placeholder();
+    return ImageUtils.PLACEHOLDER_URL;
   }
 
-  private static String placeholder() {
-    return "https://placehold.co/272x420";
-  }
 }

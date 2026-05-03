@@ -8,7 +8,6 @@
     <title>${Book.title()}</title>
     <%@ include file="/WEB-INF/jsp/components/head.jspf" %>
 </head>
-    <%@ include file="/WEB-INF/jsp/components/scripts.jspf" %>
 <body class="bg-light">
 <div class="container mt-5">
     <%@ include file="/WEB-INF/jsp/components/header.jsp" %>
@@ -44,6 +43,6 @@
         </div>
     </div>
 </div>
-
+<%@ include file="/WEB-INF/jsp/components/scripts.jspf" %>
 </body>
 </html>

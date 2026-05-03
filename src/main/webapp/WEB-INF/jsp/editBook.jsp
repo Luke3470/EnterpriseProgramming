@@ -7,7 +7,6 @@
     <title>Insert New Book</title>
     <%@ include file="/WEB-INF/jsp/components/head.jspf" %>
 </head>
-    <%@ include file="/WEB-INF/jsp/components/scripts.jspf" %>
 <body class="bg-light">
 
 <div class="container mt-5">
@@ -22,7 +21,7 @@
 
                 <div class="card-body">
 
-                    <form action="BookController" method="post">
+                    <form action="${pageContext.request.contextPath}/edit" method="post">
                         <input type="hidden" name="action" value="insert"/>
 
                         <div class="mb-3">
@@ -71,9 +70,6 @@
         </div>
     </div>
 </div>
-
-<!-- Bootstrap JS (optional but useful) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<%@ include file="/WEB-INF/jsp/components/scripts.jspf" %>
 </body>
 </html>

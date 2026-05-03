@@ -1,7 +1,7 @@
 package uk.ac.mmu.enterpriseprogramming.model.data;
 
 public record BookVO(
-    int id,
+    Integer id,
     String title,
     String author,
     String date,

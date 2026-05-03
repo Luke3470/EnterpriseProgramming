@@ -8,6 +8,8 @@ const UI = {
     this.initToggleText();
     this.initResetButtons();
     this.initFormCleanEmptyParams();
+    this.initFormValidation();
+    this.setDateMaxToday();
   },
 
   initSelect2() {
@@ -49,7 +51,7 @@ const UI = {
         const formId = btn.dataset.form || "searchForm";
         const form = document.getElementById(formId);
         if (!form) return;
-        console.log("Loaded");
+
         form.querySelectorAll("input").forEach(i => i.value = "");
         form.querySelectorAll("select").forEach(s => s.value = "");
 
@@ -74,5 +76,106 @@ const UI = {
       let page = form.querySelector("input[name='page']");
       if (page) page.value = "1";
     });
+  },
+
+  setDateMaxToday() {
+    const dateInputs = document.querySelectorAll("input[type='date'][name='date']");
+    if (!dateInputs.length) return;
+
+    const today = new Date().toISOString().split("T")[0];
+
+    dateInputs.forEach(input => {
+      input.setAttribute("max", today);
+    });
+  },
+
+  initFormValidation() {
+    const forms = document.querySelectorAll(".needs-validation");
+
+    forms.forEach(form => {
+
+      form.querySelectorAll("input, textarea").forEach(input => {
+        input.addEventListener("input", () => {
+          this.validateField(input);
+        });
+      });
+
+      form.addEventListener("submit", event => {
+        let valid = true;
+
+        form.querySelectorAll("input, textarea, select").forEach(el => {
+          if (!this.validateField(el)) {
+            valid = false;
+          }
+        });
+
+        if (!valid) {
+          event.preventDefault();
+          event.stopPropagation();
+        } else {
+          this.sanitizeForm(form); // 🔥 XSS protection
+        }
+
+        form.classList.add("was-validated");
+      });
+    });
+  },
+
+  validateField(el) {
+    const msgBox = el.parentElement.querySelector(".invalid-msg");
+
+    let message = "";
+
+    if (el.hasAttribute("required") && !el.value.trim()) {
+      message = "This field is required.";
+    }
+
+    if (el.name === "title" && el.value && el.value.length < 2) {
+      message = "Title must be at least 2 characters.";
+    }
+
+    if (el.name === "author" && el.value && el.value.length < 2) {
+      message = "Author must be at least 2 characters.";
+    }
+
+    if (el.type === "url" && el.value && !this.isValidURL(el.value)) {
+      message = "Please enter a valid URL.";
+    }
+
+    if (msgBox) {
+      msgBox.textContent = message;
+    }
+
+    el.classList.toggle("is-invalid", !!message);
+    el.classList.toggle("is-valid", !message && el.value.trim() !== "");
+
+    return !message;
+  },
+
+  isValidURL(value) {
+    try {
+      new URL(value);
+      return true;
+    } catch {
+      return false;
+    }
+  },
+
+
+  sanitizeForm(form) {
+    form.querySelectorAll("input, textarea").forEach(el => {
+      if (!el.value) return;
+
+      el.value = this.sanitize(el.value);
+    });
+  },
+
+  sanitize(str) {
+    return str
+    .trim()
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
   }
 };
