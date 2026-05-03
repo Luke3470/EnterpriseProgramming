@@ -20,23 +20,46 @@
                 </div>
 
                 <div class="card-body">
-
+                    <c:if test="${not empty errors}">
+                        <div class="alert alert-danger">
+                            Please fix the errors below.
+                        </div>
+                    </c:if>
                     <form action="${pageContext.request.contextPath}/edit" method="post">
                         <input type="hidden" name="action" value="edit"/>
                         <input type="hidden" name="id" value="${Book.id()}">
+
                         <div class="mb-3">
                             <label class="form-label">Title</label>
                             <input type="text" value="${Book.title()}" name="title" class="form-control" required>
+
+                            <c:if test="${not empty errors.title}">
+                                <div class="text-danger small">
+                                        ${errors.title}
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Author</label>
                             <input type="text" value="${Book.author()}" name="author" class="form-control" required>
+
+                            <c:if test="${not empty errors.author}">
+                                <div class="text-danger small">
+                                        ${errors.author}
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Publication Date</label>
                             <input type="date" value="${Book.date()}" name="date" class="form-control" required>
+
+                            <c:if test="${not empty errors.date}">
+                                <div class="text-danger small">
+                                        ${errors.date}
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="mb-3">
@@ -49,14 +72,17 @@
                             <input type="text" value="${Book.characters()}"  name="characters" class="form-control" placeholder="Main characters">
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Synopsis</label>
-                            <textarea name="synopsis" value="${Book.synopsis()}" class="form-control" rows="5"></textarea>
-                        </div>
+                        <textarea name="synopsis" class="form-control" rows="5">${Book.synopsis()}</textarea>
 
                         <div class="mb-3">
                             <label class="form-label">Cover URL</label>
-                            <input type="text" value="${Book.coverUrl()}" name="coverUrl" class="form-control" placeholder="https://...">
+                            <input type="text" value="${Book.coverUrl()}" name="coverUrl" class="form-control">
+
+                            <c:if test="${not empty errors.coverUrl}">
+                                <div class="text-danger small">
+                                        ${errors.coverUrl}
+                                </div>
+                            </c:if>
                         </div>
 
                         <button type="submit" class="btn btn-success w-100">

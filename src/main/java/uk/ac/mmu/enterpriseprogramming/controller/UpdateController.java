@@ -49,7 +49,7 @@ public class UpdateController extends HttpServlet {
     BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
     try {
 
-      BookVO book = BookBuilder.build(req);
+      BookVO book = BookBuilder.edit(req);
 
       Map<String, String> errors = BookFormValidator.validate(book);
 
