@@ -1,7 +1,5 @@
 package uk.ac.mmu.enterpriseprogramming.model.data;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -16,7 +14,7 @@ public class BookFilterDTO {
   private List<String> genres = new ArrayList<>();
 
   private int page = 1;
-  private int size = 12;
+  private final int size = 12;
 
   public static BookFilterDTO fromRequest(HttpServletRequest req) {
 

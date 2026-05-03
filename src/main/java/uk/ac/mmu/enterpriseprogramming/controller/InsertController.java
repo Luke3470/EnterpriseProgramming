@@ -1,6 +1,5 @@
 package uk.ac.mmu.enterpriseprogramming.controller;
 
-import java.awt.print.Book;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import uk.ac.mmu.enterpriseprogramming.helper.BookBuilder;
 import uk.ac.mmu.enterpriseprogramming.helper.BookFormValidator;
 import uk.ac.mmu.enterpriseprogramming.helper.ImageUtils;
-import uk.ac.mmu.enterpriseprogramming.helper.Validator;
 import uk.ac.mmu.enterpriseprogramming.model.BookDAO;
 import uk.ac.mmu.enterpriseprogramming.model.data.BookVO;
 
@@ -31,7 +29,7 @@ public class InsertController extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws
-      ServletException, IOException {
+      IOException {
     BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
     try {
 

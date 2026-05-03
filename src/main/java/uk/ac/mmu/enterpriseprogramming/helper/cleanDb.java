@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -77,9 +78,9 @@ public class cleanDb {
     while (attempt < maxRetries) {
       try {
         String apiUrl = "https://bookcover.longitood.com/bookcover?book_title="
-            + URLEncoder.encode(b.title(), "UTF-8")
+            + URLEncoder.encode(b.title(), StandardCharsets.UTF_8)
             + "&author_name="
-            + URLEncoder.encode(b.author(), "UTF-8");
+            + URLEncoder.encode(b.author(), StandardCharsets.UTF_8);
 
         HttpURLConnection con = (HttpURLConnection) new URL(apiUrl).openConnection();
         con.setRequestMethod("GET");
