@@ -24,7 +24,7 @@ public class InsertController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws
       ServletException, IOException {
-
+    BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
 
   }
 }

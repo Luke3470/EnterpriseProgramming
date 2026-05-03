@@ -1,8 +1,10 @@
 package uk.ac.mmu.enterpriseprogramming.controller;
 
 
+import java.util.Arrays;
 import java.util.List;
 import uk.ac.mmu.enterpriseprogramming.model.BookDAO;
+import uk.ac.mmu.enterpriseprogramming.model.data.BookFilterDTO;
 import uk.ac.mmu.enterpriseprogramming.model.data.BookVO;
 
 import javax.servlet.ServletException;
@@ -20,26 +22,18 @@ public class SearchController extends HttpServlet {
         throws ServletException, IOException {
 
         BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
-        List <String> genres = bookDAO.getGenres();
-        int page = 1;
-        int limit = 12;
 
-        String pageParam = req.getParameter("page");
-        if (pageParam != null) {
-            page = Integer.parseInt(pageParam);
-        }
+        BookFilterDTO filter = BookFilterDTO.fromRequest(req);
+        List<BookVO> books = bookDAO.getBooks(filter);
 
-        int offset = (page - 1) * limit;
+        int count = bookDAO.countBooks(filter);
+        int totalPages = (int) Math.ceil((double) count / filter.getSize());
 
-        String q = req.getParameter("q");
-
-        List<BookVO> books = bookDAO.getBooks(limit, offset);
-        int count = bookDAO.countBooks();
-        int totalPages = (int) Math.ceil((double) count / limit);
-
+        List<String> currentGenres = bookDAO.getGenres();
         req.setAttribute("Books", books);
-        req.setAttribute("Genres", genres);
-        req.setAttribute("currentPage", page);
+        req.setAttribute("Genres", currentGenres);
+        req.setAttribute("filter", filter);
+        req.setAttribute("currentPage", filter.getPage());
         req.setAttribute("totalPages", totalPages);
 
         HttpSession session = req.getSession(false);
@@ -49,6 +43,7 @@ public class SearchController extends HttpServlet {
             req.setAttribute("successMessage", msg);
             session.removeAttribute("successMessage");
         }
+
         req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, resp);
     }
 

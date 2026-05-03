@@ -20,7 +20,7 @@
            class="form-control"
            name="books"
            placeholder="Search by title"
-           value="${param.q}">
+           value="${param.books}">
     <button class="btn btn-primary" type="submit">Search</button>
   </div>
 
@@ -37,8 +37,8 @@
   </a>
 
   <div class="collapse" id="extraFilters"
-       onshown.bs.collapse="document.getElementById('filterToggleText').textContent='Show less ▲'"
-       onhidden.bs.collapse="document.getElementById('filterToggleText').textContent='Show more ▼'">
+       onshown.bs.collapse="document.getElementById('filterToggleText').textContent='Show less'"
+       onhidden.bs.collapse="document.getElementById('filterToggleText').textContent='Show more'">
 
     <div class="card card-body border shadow-sm">
       <div class="row g-3">

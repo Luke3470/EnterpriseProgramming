@@ -8,10 +8,7 @@
   <title>Book Cards</title>
   <%@ include file="/WEB-INF/jsp/components/head.jspf" %>
 </head>
-  <%@ include file="/WEB-INF/jsp/components/scripts.jspf" %>
-  <script src="${pageContext.request.contextPath}/js/index.js"></script>
 <body class="bg-light" data-context-path="${pageContext.request.contextPath}">
-
 <div class="container py-4">
   <%@ include file="/WEB-INF/jsp/components/header.jsp" %>
   <div class="row g-4">
@@ -159,5 +156,7 @@
 
     </ul>
   </nav>
+  <%@ include file="/WEB-INF/jsp/components/scripts.jspf" %>
+  <script src="${pageContext.request.contextPath}/js/index.js"></script>
 </body>
 </html>

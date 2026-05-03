@@ -13,6 +13,8 @@ import uk.ac.mmu.enterpriseprogramming.model.data.BookVO;
 
 @WebServlet("/books/*")
 public class ViewSingleBookController extends HttpServlet {
+
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -27,11 +29,15 @@ public class ViewSingleBookController extends HttpServlet {
 
     try {
       int id = Validator.validateId(cleansedPath);
+
       BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
+
       List<String> genres = bookDAO.getGenres();
       req.setAttribute("Genres", genres);
+
       BookVO book = bookDAO.getBook(id);
       req.setAttribute("Book", book);
+
       req.getRequestDispatcher("/WEB-INF/jsp/singleBook.jsp").forward(req, resp);
     } catch (NumberFormatException e) {
       resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid id");
