@@ -18,4 +18,6 @@ public interface BookDAO {
   void updateBook(BookVO book);
 
   int countBooks();
+
+  List<String> getGenres();
 }

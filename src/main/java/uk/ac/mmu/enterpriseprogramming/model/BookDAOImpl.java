@@ -15,9 +15,7 @@ public class BookDAOImpl implements BookDAO {
         this.db = db;
     }
 
-    // -------------------------
-    // GET PAGINATED
-    // -------------------------
+
     @Override
     public List<BookVO> getBooks(int limit, int offset) {
         List<BookVO> books = new ArrayList<>();
@@ -43,9 +41,6 @@ public class BookDAOImpl implements BookDAO {
         return books;
     }
 
-    // -------------------------
-    // GET ALL
-    // -------------------------
     @Override
     public List<BookVO> getAllBooks() {
         List<BookVO> books = new ArrayList<>();
@@ -66,9 +61,6 @@ public class BookDAOImpl implements BookDAO {
         return books;
     }
 
-    // -------------------------
-    // GET ONE
-    // -------------------------
     @Override
     public BookVO getBook(int id) {
         String sql = "SELECT * FROM books WHERE id = ?";
@@ -92,9 +84,7 @@ public class BookDAOImpl implements BookDAO {
         return null;
     }
 
-    // -------------------------
-    // ADD
-    // -------------------------
+
     @Override
     public void addBook(BookVO book) {
         String sql = """
@@ -122,10 +112,7 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
-    // -------------------------
-    // UPDATE
-    // -------------------------
-    @Override
+     @Override
     public void updateBook(BookVO book) {
         String sql = """
             UPDATE books 
@@ -172,9 +159,32 @@ public class BookDAOImpl implements BookDAO {
         return 0;
     }
 
-    // -------------------------
-    // DELETE
-    // -------------------------
+    @Override
+    public List<String> getGenres() {
+        String sql = "SELECT DISTINCT TRIM(j.genre) AS genre\n"
+            + "FROM cadmancl.books,\n"
+            + "JSON_TABLE(\n"
+            + "  CONCAT('[\"', REPLACE(genres, ', ', '\",\"'), '\"]'),\n"
+            + "  '$[*]' COLUMNS (genre VARCHAR(255) PATH '$')\n"
+            + ") AS j\n"
+            + "ORDER BY genre;";
+
+        List<String> genres = new ArrayList<>();
+        try (
+            Connection conn = db.createCon();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql)
+        ) {
+            while (rs.next()) {
+                genres.add(rs.getString("genre"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return genres;
+    }
+
+
     @Override
     public void deleteBook(int id) {
         String sql = "DELETE FROM books WHERE id = ?";
@@ -191,9 +201,6 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
-    // -------------------------
-    // MAPPER
-    // -------------------------
     private BookVO mapToVO(ResultSet rs) throws SQLException {
         return new BookVO(
             rs.getInt("id"),

@@ -6,12 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <title>${Book.title()}</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <%@ include file="/WEB-INF/jsp/components/head.jspf" %>
 </head>
+    <%@ include file="/WEB-INF/jsp/components/scripts.jspf" %>
 <body class="bg-light">
 <div class="container mt-5">
-    <%@ include file="/WEB-INF/jsp/header.jsp" %>
+    <%@ include file="/WEB-INF/jsp/components/header.jsp" %>
     <div class="card shadow-lg">
         <div class="row g-0">
 

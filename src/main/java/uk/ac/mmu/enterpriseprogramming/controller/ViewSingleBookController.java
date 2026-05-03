@@ -1,6 +1,7 @@
 package uk.ac.mmu.enterpriseprogramming.controller;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,9 +26,10 @@ public class ViewSingleBookController extends HttpServlet {
     String cleansedPath = path.substring(1);
 
     try {
-
       int id = Validator.validateId(cleansedPath);
       BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
+      List<String> genres = bookDAO.getGenres();
+      req.setAttribute("Genres", genres);
       BookVO book = bookDAO.getBook(id);
       req.setAttribute("Book", book);
       req.getRequestDispatcher("/WEB-INF/jsp/singleBook.jsp").forward(req, resp);

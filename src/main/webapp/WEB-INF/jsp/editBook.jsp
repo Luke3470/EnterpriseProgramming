@@ -5,14 +5,13 @@
 <html>
 <head>
     <title>Insert New Book</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <%@ include file="/WEB-INF/jsp/components/head.jspf" %>
 </head>
+    <%@ include file="/WEB-INF/jsp/components/scripts.jspf" %>
 <body class="bg-light">
 
 <div class="container mt-5">
-    <%@ include file="/WEB-INF/jsp/header.jsp" %>
+    <%@ include file="/WEB-INF/jsp/components/header.jsp" %>
     <div class="row justify-content-center">
         <div class="col-md-8">
 

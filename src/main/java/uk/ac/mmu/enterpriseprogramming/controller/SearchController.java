@@ -20,15 +20,28 @@ public class SearchController extends HttpServlet {
         throws ServletException, IOException {
 
         BookDAO bookDAO = (BookDAO) getServletContext().getAttribute("bookDAO");
-
+        List <String> genres = bookDAO.getGenres();
+        int page = 1;
         int limit = 12;
-        int offset = 0;
+
+        String pageParam = req.getParameter("page");
+        if (pageParam != null) {
+            page = Integer.parseInt(pageParam);
+        }
+
+        int offset = (page - 1) * limit;
 
         String q = req.getParameter("q");
 
         List<BookVO> books = bookDAO.getBooks(limit, offset);
+        int count = bookDAO.countBooks();
+        int totalPages = (int) Math.ceil((double) count / limit);
 
         req.setAttribute("Books", books);
+        req.setAttribute("Genres", genres);
+        req.setAttribute("currentPage", page);
+        req.setAttribute("totalPages", totalPages);
+
         HttpSession session = req.getSession(false);
 
         if (session != null) {
