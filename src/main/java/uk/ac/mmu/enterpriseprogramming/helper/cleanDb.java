@@ -42,37 +42,30 @@ public class cleanDb {
   public static void cleanDB(BookDAO booksDAO) {
     List<BookVO> books = booksDAO.getAllBooks();
     for(BookVO book : books){
-      if (!isValidDate(book.date())) {
+      String formattedDate = normalizeDate(book.date());
+
+      if (formattedDate == null) {
         booksDAO.deleteBook(book.id());
         continue;
       }
+      String url = book.coverUrl();
 
-      if (book.coverUrl() != null) {
-        continue;
+      if (url == null || url.isBlank()) {
+        url = fetchCoverUrl(book);
       }
-      String url = fetchCoverUrl(book);
-      BookVO updatedBook  = new BookVO(
+
+      BookVO updatedBook = new BookVO(
           book.id(),
           book.title(),
           book.author(),
-          book.date(),
+          formattedDate,
           book.genres(),
           book.characters(),
           book.synopsis(),
           url
       );
+
       booksDAO.updateBook(updatedBook);
-    }
-  }
-
-
-  public static boolean isValidDate(String date) {
-    DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    try {
-      LocalDate.parse(date, f);
-      return true;
-    } catch (DateTimeParseException e) {
-      return false;
     }
   }
 
@@ -140,6 +133,28 @@ public class cleanDb {
     }
 
     return ImageUtils.PLACEHOLDER_URL;
+  }
+
+  public static String normalizeDate(String date) {
+
+    if (date == null || date.isBlank()) return null;
+
+    DateTimeFormatter dbFormat =
+        DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    DateTimeFormatter inputFormat =
+        DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    DateTimeFormatter[] formats = { dbFormat, inputFormat };
+
+    for (DateTimeFormatter f : formats) {
+      try {
+        LocalDate parsed = LocalDate.parse(date, f);
+        return parsed.format(dbFormat);
+      } catch (DateTimeParseException ignored) {}
+    }
+
+    return null;
   }
 
 }

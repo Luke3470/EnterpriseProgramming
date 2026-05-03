@@ -42,7 +42,7 @@ public class InsertController extends HttpServlet {
       if (!errors.isEmpty()) {
         req.setAttribute("errors", errors);
         req.setAttribute("book", BookBuilder.build(req));
-        req.getRequestDispatcher("WEB-INF/jsp/insertBook.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/insertBook.jsp").forward(req, resp);
         return;
       }
 

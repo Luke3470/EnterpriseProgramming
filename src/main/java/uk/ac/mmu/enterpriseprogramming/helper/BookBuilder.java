@@ -21,11 +21,22 @@ public class BookBuilder {
       coverUrl = ImageUtils.PLACEHOLDER_URL;
     }
 
+    String idParam = req.getParameter("id");
+
+    Integer id = null;
+    if (idParam != null && !idParam.isBlank()) {
+      try {
+        id = Integer.parseInt(idParam);
+      } catch (NumberFormatException ignored) {
+        id = null;
+      }
+    }
+
     return new BookVO(
-        null,
+        id,
         safe(req.getParameter("title")),
         safe(req.getParameter("author")),
-        formatDate(req.getParameter("date")),
+        safe(req.getParameter("date")),
         safe(req.getParameter("genres")),
         safe(req.getParameter("characters")),
         safe(req.getParameter("synopsis")),
@@ -37,11 +48,6 @@ public class BookBuilder {
   private static String safe(String value) {
     return value == null ? null : value.trim();
   }
-  private static String formatDate(String date) {
-    if (date == null || date.isBlank()) return null;
 
-    LocalDate parsed = LocalDate.parse(date, INPUT);
-    return parsed.format(OUTPUT);
-  }
 
 }

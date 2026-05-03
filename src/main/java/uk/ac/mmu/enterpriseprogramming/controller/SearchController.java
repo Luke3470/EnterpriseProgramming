@@ -1,7 +1,5 @@
 package uk.ac.mmu.enterpriseprogramming.controller;
 
-
-import java.util.Arrays;
 import java.util.List;
 import uk.ac.mmu.enterpriseprogramming.model.BookDAO;
 import uk.ac.mmu.enterpriseprogramming.model.data.BookFilterDTO;

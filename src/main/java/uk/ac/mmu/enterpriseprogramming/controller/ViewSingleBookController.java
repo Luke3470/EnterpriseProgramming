@@ -36,6 +36,12 @@ public class ViewSingleBookController extends HttpServlet {
       req.setAttribute("Genres", genres);
 
       BookVO book = bookDAO.getBook(id);
+
+      if (book == null) {
+        resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Book not found");
+        return;
+      }
+
       req.setAttribute("Book", book);
 
       req.getRequestDispatcher("/WEB-INF/jsp/singleBook.jsp").forward(req, resp);

@@ -48,8 +48,8 @@ public class BookFilterDTO {
   public void validateAndNormalize() {
 
     query = clean(query);
-    dateFrom = parseDateInput(clean(dateFrom));
-    dateTo = parseDateInput(clean(dateTo));
+    dateFrom = clean(dateFrom);
+    dateTo = clean(dateTo);
     genres = genres.stream()
         .filter(g -> g != null && !g.trim().isEmpty())
         .collect(Collectors.toList());
@@ -74,23 +74,6 @@ public class BookFilterDTO {
     return size;
   }
 
-  private String parseDateInput(String dateStr) {
-    if (dateStr == null || dateStr.isBlank()) return null;
-
-    List<DateTimeFormatter> formats = List.of(
-        DateTimeFormatter.ofPattern("dd/MM/yyyy"),
-        DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    );
-
-    for (DateTimeFormatter fmt : formats) {
-      try {
-        LocalDate d = LocalDate.parse(dateStr, fmt);
-        return d.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); // DB format
-      } catch (Exception ignored) { }
-    }
-
-    throw new IllegalArgumentException("Invalid date: " + dateStr);
-  }
 
   public String getQuery() { return query; }
   public String getDateFrom() { return dateFrom; }
