@@ -140,18 +140,19 @@ public class cleanDb {
 
     if (date == null || date.isBlank()) return null;
 
-    DateTimeFormatter dbFormat =
-        DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter outputFormat = DateTimeFormatter.ISO_LOCAL_DATE;
 
-    DateTimeFormatter inputFormat =
-        DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter[] inputFormats = {
+        DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+        DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+        DateTimeFormatter.ofPattern("d/M/yyyy"),
+        DateTimeFormatter.ofPattern("yyyy/MM/dd")
+    };
 
-    DateTimeFormatter[] formats = { dbFormat, inputFormat };
-
-    for (DateTimeFormatter f : formats) {
+    for (DateTimeFormatter f : inputFormats) {
       try {
         LocalDate parsed = LocalDate.parse(date, f);
-        return parsed.format(dbFormat);
+        return parsed.format(outputFormat);
       } catch (DateTimeParseException ignored) {}
     }
 
